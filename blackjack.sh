@@ -5,16 +5,15 @@ declare -i runningSum = 0
 
 
 
-function welcome() {
-    clear
-    printf "__________.__                 __        ____.              __\n"
-    printf "\______   \\  | _____    ____ |  | __   |    |____    ____ |  | __\n"
-    printf " |    |  _/  | \\__  \\ _/ ___\\|  |/ /   |    \\__  \\ _/ ___\\|  |/ /\n"
-    printf " |    |   \\  |__/ __ \\\\   \\___|    </\\__|    |/ __ \\\\  \\____|    < \n"
-    printf " |______  /____(____  /\\___  >__|_ \\________(____  /\\___  >__|_ \\ \n"
-    printf "        \\/          \\/     \\/     \\/             \\/     \\/     \\/\n";
-    printf "by Eddie Phillips\n"
-}
+
+printf "__________.__                 __        ____.              __\n"
+printf "\______   \\  | _____    ____ |  | __   |    |____    ____ |  | __\n"
+printf " |    |  _/  | \\__  \\ _/ ___\\|  |/ /   |    \\__  \\ _/ ___\\|  |/ /\n"
+printf " |    |   \\  |__/ __ \\\\   \\___|    </\\__|    |/ __ \\\\  \\____|    < \n"
+printf " |______  /____(____  /\\___  >__|_ \\________(____  /\\___  >__|_ \\ \n"
+printf "        \\/          \\/     \\/     \\/             \\/     \\/     \\/\n"
+printf "by Eddie Phillips\n"
+
 
 function basic_strategy() {
     clear
@@ -104,7 +103,6 @@ function cardcounting() {
 }
 
 function main() {
-    welcome
     while [[ 1 -eq 1 ]]; do
         sleep 1
         instructions
@@ -112,7 +110,7 @@ function main() {
             4) #exit
                 exit 0
                 ;;
-            3) # Counting Cards DONE (FOR NOW)
+            3) # Counting Cards FUNCTIONAL
                 cardcounting
                 ;;
             2) # Blackjack TODO
