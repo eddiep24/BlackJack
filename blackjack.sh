@@ -1,5 +1,10 @@
 #!/bin/bash
 
+declare -a arr=()
+declare -i runningSum = 0
+
+
+
 function welcome() {
     clear
     printf "__________.__                 __        ____.              __\n"
@@ -51,6 +56,24 @@ function blackjack() {
     printf "coming soon";
 }
 
+function printCardCounting() {
+    case $curNum in
+        11)
+            printf "J\n"
+            ;;
+        12)
+            printf "Q\n"
+            ;;
+        13)
+            printf "K\n"
+            ;;
+        *)
+            printf "$curNum\n"
+            ;;
+    esac
+    sleep 1
+}
+
 function cardcounting() {
     clear
     printf "The most popular card counting strategy by far is High-Low.  In this, cards 2 to 6 are given\n"
@@ -58,18 +81,26 @@ function cardcounting() {
     printf "The idea is that as the game goes on, the player wants to keep a running sum based on the\n"
     printf "assigned values.  A lower running sum is indicative of a deck that has less high cards,\n"
     printf "therefore a lower winning probability, and the inverse is true.  Let's start.\n"
+    while [[ 1 -eq 1 ]]; do
 
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "                                                                                            "
-    printf "coming soon"
+        for n in 0 1 2 3 4; do
+            curNum=$(shuf -i 1-13 -n1)
+            if [[ $curNum -gt 9 ]]; then
+                runningSum=$((runningSum-1))
+            elif [[ $curNum -lt 7 ]]; then
+                runningSum=$((runningSum+1))
+            fi
+            printCardCounting
+        done
+        printf "Current running sum is $runningSum\n"
+
+        printf "Would you like to continue? (y/n)\n"
+        read temp
+        if [[ $temp = n || $temp = N ]]; then
+            break
+        fi
+    done
+
 }
 
 function main() {
@@ -81,22 +112,20 @@ function main() {
             4) #exit
                 exit 0
                 ;;
-            3) # Counting Cards
-            cardcounting
+            3) # Counting Cards DONE (FOR NOW)
+                cardcounting
                 ;;
-            2) # Blackjack
+            2) # Blackjack TODO
                 blackjack
                 ;;
-            1) # Basic Strategy
+            1) # Basic Strategy DONE
                 basic_strategy
                 ;;
             *)
                 continue
                 ;;
         esac
-            
     done
-    
 }
 
-main
+cardcounting
