@@ -14,7 +14,9 @@ function welcome() {
 function basic_strategy() {
     clear
 
-    printf "|Hard Total |              Dealer Upcard            |\n"
+    printf "|           |             Dealer Upcard             |\n"
+    printf "|Hard Total | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| A |\n"
+    printf "%s\n" "-----------------------------------------------------"
     printf "|   5-7     | H | H | H | H | H | H | H | H | H | H |\n"
     printf "|    8      | H | H | H | H | H | H | H | H | H | H |\n"
     printf "|    9      | H | D | D | D | D | H | H | H | H | H |\n"
@@ -34,11 +36,67 @@ function basic_strategy() {
     printf "|   A,6     | H | D | D | D | D | H | H | H | H | H |\n"
     printf "|   A,7     |DS |DS |DS |DS |DS | S | S | H | H | H |\n"
     printf "|   A,8     | S | S | S | S |DS | S | S | S | S | S |\n"
-    printf "|   A,9     | S | S | S | S | S | S | S | S | S | S |\n"
+    printf "|   A,9     | S | S | S | S | S | S | S | S | S | S |\n\n"
+}
+
+function instructions() {
+    printf "\n[1] for Basic Strategy Cheat Sheet\n"
+    printf "[2] for Blackjack practice\n"
+    printf "[3] for practice counting cards\n"
+    echo "[4] exit\n"
+    read input
 }
 
 function blackjack() {
-
+    printf "coming soon";
 }
 
-welcome
+function cardcounting() {
+    clear
+    printf "The most popular card counting strategy by far is High-Low.  In this, cards 2 to 6 are given\n"
+    printf "a +1 value, cards 10 to A are given a -1 value, and cards 7, 8, and 9 are given a value of 0.\n"
+    printf "The idea is that as the game goes on, the player wants to keep a running sum based on the\n"
+    printf "assigned values.  A lower running sum is indicative of a deck that has less high cards,\n"
+    printf "therefore a lower winning probability, and the inverse is true.  Let's start.\n"
+
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "                                                                                            "
+    printf "coming soon"
+}
+
+function main() {
+    welcome
+    while [[ 1 -eq 1 ]]; do
+        sleep 1
+        instructions
+        case $input in
+            4) #exit
+                exit 0
+                ;;
+            3) # Counting Cards
+            cardcounting
+                ;;
+            2) # Blackjack
+                blackjack
+                ;;
+            1) # Basic Strategy
+                basic_strategy
+                ;;
+            *)
+                continue
+                ;;
+        esac
+            
+    done
+    
+}
+
+main
