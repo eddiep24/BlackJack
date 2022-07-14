@@ -1,7 +1,7 @@
 #!/bin/bash
 
 arr=(0 0 0 0 0 0 0 0)
-# declare -i runningSum = 0
+runningSum=0
 
 
 
@@ -94,8 +94,8 @@ function printBlackjack() {
     done
     printf "\n"
     printf "hit (h), stay (s), double (d), split (p), exit (e)\n"
-    read response
 }
+
 
 function blackjack() {
     done=$false
@@ -103,11 +103,71 @@ function blackjack() {
     arr[0]=$(shuf -i 1-13 -n1)
     while [[ $done != true ]] ; do
         cur=$(shuf -i 1-13 -n1)
+
+        if [ $ace || $cur -eq 1 ]; then 
+            ace=$true
+        else
+            ace=$false
+        fi
+
         arr[$count]=$cur
         printBlackjack
+        runningSum+=$cur
+        read response
         if [[ $response = e ]]; then
             exit 0
         fi
+
+        # Logic for Basic Strategy Implementation
+        # Start with what the dealer card is
+        correctSol=$false
+        case ${arr[0]} in
+        1)
+            # Hard Total (TODO check for ace)
+            if [[ $response = 'h' && !($ace) ]]; then
+                if [[ $runningSum = (5 || 6 || 7 || 8 || 9 || 10 || 12 || 13 || 14) ]]; then
+                    correctSol=$true
+                fi
+            fi
+
+            ;;
+        2)
+            ;;
+        3)
+            ;;
+        4)
+            ;;
+        5)
+            ;;
+        6)
+            ;;
+        7)
+            ;;
+        8)
+            ;;
+        9)
+            ;;
+        *) # Worth 10
+            # if [[ $response =  ]]
+            # fi
+            ;;
+        esac
+        #########################################
+        if [ !($correctSol) ]; then
+            printf "Incorrect Solution. Play again (a), Menu (m), or Exit (e)\n"
+            read r
+            case $r in
+            "a") # Possibly restart all variables in the future here
+                blackjack
+                ;;
+            "m")
+                main
+                ;;
+            *)
+                exit 0
+                ;;
+            esac
+
         count=$((count+1))
     done
 
