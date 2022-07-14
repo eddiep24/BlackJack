@@ -1,6 +1,6 @@
 # blackjack
 
-Sometimes you might want to do something somewhat productive, such as learning a new skill while also having fun.
+Sometimes you might want to do something somewhat productive, such as learning a new skill while also having fun.  This type of scenerio is prime for learning card counting/basic strategy in blackjack.
 
 There are two easy ways to add this to path:
 
