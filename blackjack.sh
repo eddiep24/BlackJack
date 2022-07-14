@@ -43,14 +43,6 @@ function basic_strategy() {
     printf "|   A,9     | S | S | S | S | S | S | S | S | S | S |\n\n"
 }
 
-function instructions() {
-    printf "\n[1] for Basic Strategy Cheat Sheet\n"
-    printf "[2] for Blackjack practice\n"
-    printf "[3] for practice counting cards\n"
-    echo "[4] exit\n"
-    read input
-}
-
 function printBlackjack() {
     case ${arr[0]} in
         1)
@@ -101,10 +93,11 @@ function blackjack() {
     done=$false
     count=1
     arr[0]=$(shuf -i 1-13 -n1)
+    arr[0]=1 #THIS LINE IS FOR TESTING
     while [[ $done != true ]] ; do
         cur=$(shuf -i 1-13 -n1)
 
-        if [ $ace || $cur -eq 1 ]; then 
+        if [ $ace ] || [ $cur -eq 1 ]; then 
             ace=$true
         else
             ace=$false
@@ -120,40 +113,48 @@ function blackjack() {
 
         # Logic for Basic Strategy Implementation
         # Start with what the dealer card is
-        correctSol=$false
+        correctSol=false
         case ${arr[0]} in
         1)
             # Hard Total (TODO check for ace)
             if [[ $response = 'h' && !($ace) ]]; then
-                if [[ $runningSum = (5 || 6 || 7 || 8 || 9 || 10 || 12 || 13 || 14) ]]; then
-                    correctSol=$true
+                if [[ $runningSum = 5 || $runningSum = 6 || $runningSum = 7 || $runningSum = 8 || $runningSum = 9 || $runningSum = 10 || $runningSum = 12 || $runningSum = 13 || $runningSum = 14 ]]; then
+                    correctSol=true
                 fi
             fi
 
             ;;
         2)
+            correctSol=true
             ;;
         3)
+            correctSol=true
             ;;
         4)
+            correctSol=true
             ;;
         5)
+            correctSol=true
             ;;
         6)
+            correctSol=true
             ;;
         7)
+            correctSol=true
             ;;
         8)
+            correctSol=true
             ;;
         9)
+            correctSol=true
             ;;
-        *) # Worth 10
-            # if [[ $response =  ]]
-            # fi
+        *) 
+            correctSol=true
             ;;
         esac
+        echo $correctSol
         #########################################
-        if [ !($correctSol) ]; then
+        if [ $correctSol -eq $false ]; then
             printf "Incorrect Solution. Play again (a), Menu (m), or Exit (e)\n"
             read r
             case $r in
@@ -167,9 +168,9 @@ function blackjack() {
                 exit 0
                 ;;
             esac
-
+        fi
         count=$((count+1))
-    done
+    done 
 
     # reset arr
     for i in {0..$count}; do
@@ -227,7 +228,11 @@ function cardcounting() {
 function main() {
     while [[ 1 -eq 1 ]]; do
         sleep 1
-        instructions
+        printf "\n[1] for Basic Strategy Cheat Sheet\n"
+        printf "[2] for Blackjack practice\n"
+        printf "[3] for practice counting cards\n"
+        echo "[4] exit\n"
+        read input
         case $input in
             4) #exit
                 exit 0
@@ -248,4 +253,4 @@ function main() {
     done
 }
 
-main
+blackjack
