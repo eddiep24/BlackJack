@@ -1,7 +1,7 @@
 #!/bin/bash
 
-declare -a arr=()
-declare -i runningSum = 0
+arr=(0 0 0 0 0 0 0 0)
+# declare -i runningSum = 0
 
 
 
@@ -31,7 +31,7 @@ function basic_strategy() {
     printf "|    14     | S | S | S | S | S | H | H | H | H | H |\n"
     printf "|    15     | S | S | S | S | S | H | H | H | R | R |\n"
     printf "|    16     | S | S | S | S | S | H | H | R | R | R |\n"
-    printf "|    17     | S | S | S | S | S | S | S | S | S | RS|\n"
+    printf "|    17     | S | S | S | S | S | S | S | S | S | RS|\n\n"
     printf "|Soft Total | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 | A |\n"
     printf "|   A,2     | H | H | H | D | D | H | H | H | H | H |\n"
     printf "|   A,3     | H | H | H | D | D | H | H | H | H | H |\n"
@@ -51,8 +51,70 @@ function instructions() {
     read input
 }
 
+function printBlackjack() {
+    case ${arr[0]} in
+        1)
+            printf "Dealer: A\n"
+            ;;
+        11)
+            printf "Dealer: J\n"
+            ;;
+        12)
+            printf "Dealer: Q\n"
+            ;;
+        13)
+            printf "Dealer: K\n"
+            ;;
+        *)
+            printf "Dealer: ${arr[0]}\n"
+            ;;
+    esac
+    printf "You: "
+    tempCount=1
+    while [[ ${arr[$tempCount]} != 0 ]]; do
+        case ${arr[$tempCount]} in
+        1)
+            printf "A "
+            ;;
+        11)
+            printf "J "
+            ;;
+        12)
+            printf "Q "
+            ;;
+        13)
+            printf "K "
+            ;;
+        *)
+            printf "${arr[$tempCount]} "
+            ;;
+        esac
+        
+        tempCount=$((tempCount+1))
+    done
+    printf "\n"
+    printf "hit (h), stay (s), double (d), split (p), exit (e)\n"
+    read response
+}
+
 function blackjack() {
-    printf "coming soon";
+    done=$false
+    count=1
+    arr[0]=$(shuf -i 1-13 -n1)
+    while [[ $done != true ]] ; do
+        cur=$(shuf -i 1-13 -n1)
+        arr[$count]=$cur
+        printBlackjack
+        if [[ $response = e ]]; then
+            exit 0
+        fi
+        count=$((count+1))
+    done
+
+    # reset arr
+    for i in {0..$count}; do
+        arr[$i]=0
+    done
 }
 
 function printCardCounting() {
@@ -126,4 +188,4 @@ function main() {
     done
 }
 
-cardcounting
+main
